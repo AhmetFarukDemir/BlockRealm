@@ -1,0 +1,44 @@
+{
+  "items": {
+    "1": {
+      "name": "Iron Sword",
+      "description": "A basic iron sword, effective for close combat.",
+      "type": "tool",
+      "value": 50,
+      "iconUrl": "/icons/iron_sword.png"
+    },
+    "2": {
+      "name": "Stone",
+      "description": "A common material used for crafting and building.",
+      "type": "material",
+      "value": 10,
+      "iconUrl": "/icons/stone.png"
+    },
+    "3": {
+      "name": "Iron Ore",
+      "type": "material",
+      "value": 25,
+      "iconUrl": "/icons/iron_ore.png"
+    },
+    "4": {
+      "name": "Mystery Chest",
+      "type": "consumable",
+      "value": 100,
+      "iconUrl": "/icons/chest.png"
+    }
+  },
+  "miningLootTable": [
+    { "itemId": 2, "chance": 90 }, 
+    { "itemId": 3, "chance": 9 },
+    { "itemId": 4, "chance": 1 } 
+  ],
+  "recipes": {
+    "1": {
+      "ingredients": [
+        { "itemId": 3, "quantity": 2 }
+      ],
+      "result": { "itemId": 1, "quantity": 1 },
+      "goldCost": 20
+    }
+  }
+}

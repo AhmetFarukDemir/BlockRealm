@@ -21,7 +21,7 @@ const Home = () => {
 
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-14">
-        {/* CRAFTING (WIP) */}
+        {/* CRAFTING */}
         <Link to="/blacksmith">
           <div className="bg-neutral-900/80 border border-orange-900/30 p-8 rounded-xl relative overflow-hidden group hover:border-orange-500/50 transition-colors">
             <div className="absolute inset-0 bg-orange-900/5 opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -60,7 +60,7 @@ const Home = () => {
           Travel Hub
         </h2>
         <div className="flex flex-col gap-6">
-          {/* AKTİF MADEN (Tıklanabilir) */}
+          
           <Link to="/mine" className="block group">
             <div className="flex items-center justify-between bg-neutral-900 border-2 border-orange-900/40 group-hover:border-orange-500 p-6 rounded-xl transition-all shadow-lg">
               <div>

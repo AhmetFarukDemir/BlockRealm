@@ -1,10 +1,14 @@
-import  InventoryItem  from './Inventory/InventoryItem.tsx'
+import InventoryItem  from './Inventory/InventoryItem.tsx'
 import useGameStore from '../Store/useGameStore.ts'
 
 
 
 const LeftSidebar = () => {
   const inventory = useGameStore((state) => state.inventory);
+  const gameDictionary = useGameStore((state) => state.gameDictionary);
+
+  if (!gameDictionary) return <div className="p-4 text-neutral-500">Loading Data...</div>;
+
 
   return (
     <div className='select-none'>
@@ -16,25 +20,33 @@ const LeftSidebar = () => {
             Inventory
           </button>
       </div>
-      
+
       <div className='space-y-2'>
-        {inventory.map ((item) => (
-          <InventoryItem 
-            key={item.id}
-            id={item.id}
-            name={item.name}
-            quantity={item.quantity}
-            level={item.level}
-            type={item.type}
-            base_power={item.base_power}
-            base_defense={item.base_defense}
-            healing_amount={item.healing_amount}
-            rarity={item.rarity}
-            iconUrl={item.iconUrl}
-            value={item.value}
-          />
-        ))}
+        {inventory.map((item) => {
+          // itemId from DB or id from zustand
+          const targetId = item.itemId || item.id; 
+          
+          const dictItem = gameDictionary.items[targetId];
+
+          if (!dictItem) return null; 
+
+          // Render on-the-fly
+          return (
+            <InventoryItem 
+              key={targetId}
+              id={targetId}
+              name={dictItem.name}               // From dictionary
+              quantity={item.quantity}           // From DB
+              type={dictItem.type}               // From dictionary
+              rarity={'common'}                  // Hardcode rarity for now
+              iconUrl={dictItem.iconUrl}         // From dictionary
+              value={dictItem.value}             // From dictionary
+              level={1}                          // Hardcode level for now
+            />
+          )
+        })}
       </div>
+
     </div>
   )
 }

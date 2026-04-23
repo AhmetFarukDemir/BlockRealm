@@ -1,62 +1,79 @@
 # ⛏️ BlockRealm RPG
 
-A modern, web-based incremental RPG game built with React. Gather resources, manage your inventory, trade in the dynamic marketplace, and upgrade your gear. 
+A modern, full-stack incremental RPG built with React and Node.js. Gather resources, manage your inventory, craft gear, and trade in the marketplace.
 
-BlockRealm focuses on providing a seamless, state-driven gaming experience directly in the browser, featuring persistent data and smooth UI transitions.
+Originally a frontend-only prototype, BlockRealm has been re-architected into a secure, database-driven web game focusing on server authority and scalable data management.
 
-## 🚀 Tech Stack & Architecture
+## 🚀 Tech Stack
 
-This project was built focusing on **Engineering Excellence**, clean code principles, and modern frontend architecture:
+**Frontend:**
+* React 18 (Vite)
+* TypeScript
+* Zustand (State Management)
+* Tailwind CSS & Framer Motion (Styling & UI)
+* Clerk (Authentication)
 
-* **Frontend Framework:** React 18 (Bootstrapped with Vite for instant HMR and optimized builds).
-* **Language:** TypeScript (Strict typing for robust state and interfaces).
-* **State Management:** Zustand (Implemented with `persist` middleware for LocalStorage data retention).
-* **Routing:** React Router DOM v6 (Client-side routing with optimized component unmounting).
-* **Styling:** Tailwind CSS (Utility-first, responsive, custom dark-theme configuration).
-* **Animations:** Framer Motion (Smooth page transitions using `<AnimatePresence>`).
+**Backend & Database:**
+* Node.js & Express
+* MongoDB (Mongoose)
+* Clerk Webhooks (User sync)
 
-## 🧠 Core Features
+## 🧠 Architecture & Engineering
 
-* **Persistent Global State:** The game's core loop (Inventory, Gold, XP, Player Stats) is managed via a centralized Zustand store. Your progress is automatically saved to local storage—no data loss on refresh.
-* **Data-Driven UI:** Components render conditionally based on strict data types (e.g., consumable items hide their level stats automatically).
-* **Bulletproof Economy Logic:** The Marketplace implements strict array manipulation and security checks to prevent negative quantities or "infinite money" exploits.
-* **Immutability:** State updates strictly follow React's immutability rules using spread operators and deep cloning to ensure flawless re-renders.
+This project focuses on clean code principles and preventing common web-game exploits:
 
-## 🎮 Game Loops (MVP)
+* **Server Authority:** The frontend never dictates game logic. Market prices, loot drops, and crafting costs are strictly calculated on the backend using a centralized `gameConfig.json` file to prevent client-side manipulation.
+* **Buffered Synchronization:** To prevent server DDoS and race conditions during rapid clicking (Mining), actions are buffered locally in React using `useRef` and synced with the database every 2 seconds.
+* **Two-Phase Commit Crafting:** Crafting logic ensures atomicity. The server verifies the user has all required materials and gold before executing any database modifications, preventing partial-crafting bugs.
+* **O(1) Data Structuring:** The frontend transforms raw inventory arrays into Hash Maps (`Record<number, number>`) on the fly, allowing the UI to check crafting requirements and draw components instantly without nested loops.
 
-1.  **Surface Mine:** Click to gather raw materials (Stone, Wood) and earn initial XP/Gold. Level up mechanics scale dynamically.
-2.  **Marketplace:** Sell gathered resources based on dynamic values. Features "Sell 1" and "Sell All" batch processing.
-3.  **Blacksmith (WIP):** Interface ready for upgrading gear and smelting raw ores into premium bars.
-4.  **Goblin Caves (WIP):** High-risk, high-reward combat zone gated by player level.
+## 🎮 Core Game Loops
+
+1. **Surface Mine:** Gather raw materials (Stone, Iron Ore). Features a client-side Auto-Miner and real-time synchronization indicators.
+2. **The Forge:** A dynamic crafting system. The UI checks inventory requirements in real-time and enables crafting if conditions (materials + gold) are met.
+3. **Marketplace:** Sell gathered resources or buy items. Transactions are securely verified against the active game configuration.
 
 ## 🛠️ Quick Start
 
-To run this project locally:
+This repository uses a monorepo structure separating the `client` and `server`.
 
-1. Clone the repository:
-   ```Bash
-   git clone [https://github.com/AhmetFarukDemir/blockrealm.git](https://github.com/AhmetFarukDemir/blockrealm.git)
-   ```
-2. Navigate to the project directory:
-    ```Bash
-    cd blockrealm
-    ```
-3. Install dependencies:
-    ```Bash
-    npm install
-    ```
-4. Start the development server:
-    ```Bash
-    npm run dev
-    ```
+### 1. Backend Setup
+```bash
+# Navigate to the server folder
+cd server
+
+# Install dependencies
+npm install
+
+# Create a .env file based on your credentials
+# Required: PORT, MONGO_URI, CLERK_WEBHOOK_SIGNING_SECRET
+touch .env
+
+# Start the server
+npm start
+```
+
+### 2. Frontend Setup
+Open a new terminal window:
+```bash
+# Navigate to the client folder
+cd client
+
+# Install dependencies
+npm install
+
+# Create a .env file
+# Required: VITE_CLERK_PUBLISHABLE_KEY, VITE_API_URL (e.g., http://localhost:5000)
+touch .env
+
+# Start the development server
+npm run dev
+```
+
 🔮 Roadmap
 
-    [ ] Supabase Integration for Cloud Saves & Authentication
+    [ ] Implement Combat System (Goblin Caves)
 
-    [ ] Implement Combat System for Goblin Caves
+    [ ] Enemy Loot Tables and Encounter Logic
 
-    [ ] Blacksmith logic for Pickaxe and Armor upgrading
-
-    [ ] Dynamic loot tables and rarity calculations
-
-Developed with a focus on clean frontend architecture.
+    [ ] Equipment slots and active stats system
