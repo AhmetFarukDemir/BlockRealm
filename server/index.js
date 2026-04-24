@@ -17,6 +17,12 @@ app.use(cors({
     credentials: true
 }));
 
+
+app.head('/', (req, res) => {
+    res.status(200).end();
+});
+
+
 // WEBHOOK ROUTE
 app.use('/api/webhooks', webhookRoutes);
 
@@ -31,10 +37,6 @@ const uri = process.env.MONGO_URI;
 
 app.get('/', (req, res) => {
     res.json({ "message": "BlockRealm Server is alive!" })
-});
-
-app.head('/', (req, res) => {
-    res.status(200).end();
 });
 
 try {
