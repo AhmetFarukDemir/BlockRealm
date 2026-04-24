@@ -33,6 +33,10 @@ app.get('/', (req, res) => {
     res.json({ "message": "BlockRealm Server is alive!" })
 });
 
+app.head('/', (req, res) => {
+    res.status(200).end();
+});
+
 try {
     await mongoose.connect(uri);
     console.log('Connected to MongoDB');

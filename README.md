@@ -70,10 +70,10 @@ touch .env
 npm run dev
 ```
 
-🔮 Roadmap
+## 🔮 Roadmap
 
-    [ ] Implement Combat System (Goblin Caves)
-
-    [ ] Enemy Loot Tables and Encounter Logic
-
-    [ ] Equipment slots and active stats system
+- [ ] **Automated Deployment:** [ ] CI/CD pipeline setup for automated deployment
+- [ ] **Guest Access:** Implement "Continue as Guest" to allow instant gameplay without mandatory sign-up.
+- [ ] **Combat System:** Introduction of the "Goblin Caves" with turn-based or real-time combat.
+- [ ] **Advanced Loot Tables:** Complex drop logic for rare artifacts and boss encounters.
+- [ ] **Equipment & Progression:** Implement active slots (Weapon, Armor, Accessory) with stat modifiers.
