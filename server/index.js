@@ -13,14 +13,11 @@ const PORT = process.env.PORT || 5000;
 const app = express();
 
 app.use(cors({
-    origin: [
-        'https://block-realm-three.vercel.app', 
-        'http://localhost:5173',                
-        process.env.CLIENT_URL                  
-    ],
+    origin: function (origin, callback) {
+        callback(null, true);
+    },
     credentials: true
 }));
-
 
 app.head('/', (req, res) => {
     res.status(200).end();
