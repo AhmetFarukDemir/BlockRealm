@@ -72,7 +72,7 @@ npm run dev
 
 ## 🔮 Roadmap
 
-- [ ] **Automated Deployment:** [ ] CI/CD pipeline setup for automated deployment
+- [ ] **Automated Deployment:** CI/CD pipeline setup for automated deployment
 - [ ] **Guest Access:** Implement "Continue as Guest" to allow instant gameplay without mandatory sign-up.
 - [ ] **Combat System:** Introduction of the "Goblin Caves" with turn-based or real-time combat.
 - [ ] **Advanced Loot Tables:** Complex drop logic for rare artifacts and boss encounters.

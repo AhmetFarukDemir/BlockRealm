@@ -1,14 +1,11 @@
 import InventoryItem  from './Inventory/InventoryItem.tsx'
 import useGameStore from '../Store/useGameStore.ts'
 
-
-
 const LeftSidebar = () => {
   const inventory = useGameStore((state) => state.inventory);
   const gameDictionary = useGameStore((state) => state.gameDictionary);
 
   if (!gameDictionary) return <div className="p-4 text-neutral-500">Loading Data...</div>;
-
 
   return (
     <div className='select-none'>
@@ -22,31 +19,36 @@ const LeftSidebar = () => {
       </div>
 
       <div className='space-y-2'>
-        {inventory.map((item) => {
-          // itemId from DB or id from zustand
-          const targetId = item.itemId || item.id; 
-          
-          const dictItem = gameDictionary.items[targetId];
+        {inventory.length === 0 ? (
+           <div className="p-4 bg-neutral-900/50 border border-neutral-800 rounded-lg text-neutral-500 text-sm text-center">
+             Your backpack is empty. 🎒
+           </div>
+        ) : (
+          inventory.map((item) => {
+            // itemId from DB or id from zustand
+            const targetId = item.itemId || item.id; 
+            
+            const dictItem = gameDictionary.items[targetId];
 
-          if (!dictItem) return null; 
+            if (!dictItem) return null; 
 
-          // Render on-the-fly
-          return (
-            <InventoryItem 
-              key={targetId}
-              id={targetId}
-              name={dictItem.name}               // From dictionary
-              quantity={item.quantity}           // From DB
-              type={dictItem.type}               // From dictionary
-              rarity={'common'}                  // Hardcode rarity for now
-              iconUrl={dictItem.iconUrl}         // From dictionary
-              value={dictItem.value}             // From dictionary
-              level={1}                          // Hardcode level for now
-            />
-          )
-        })}
+            // Render on-the-fly
+            return (
+              <InventoryItem 
+                key={targetId}
+                id={targetId}
+                name={dictItem.name}               // From dictionary
+                quantity={item.quantity}           // From DB
+                type={dictItem.type}               // From dictionary
+                rarity={'common'}                  // Hardcode rarity for now
+                iconUrl={dictItem.iconUrl}         // From dictionary
+                value={dictItem.value}             // From dictionary
+                level={1}                          // Hardcode level for now
+              />
+            )
+          })
+        )}
       </div>
-
     </div>
   )
 }
