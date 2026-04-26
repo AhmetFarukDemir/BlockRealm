@@ -100,7 +100,7 @@ const Blacksmith = () => {
 
               <div className="flex items-center gap-4 mb-6 border-b border-neutral-800/50 pb-4">
                 <div className="w-16 h-16 bg-neutral-950 border border-neutral-800 rounded-lg flex items-center justify-center text-3xl">
-                  {resultItem.iconUrl}
+                  <img src={resultItem.iconUrl} alt={resultItem.name} />
                 </div>
                 <div>
                   <h2 className="text-xl font-bold text-neutral-100">{resultItem.name}</h2>
