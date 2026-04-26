@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import useGameStore from '../Store/useGameStore'
+import { SignOutButton } from '@clerk/react'
 
 
 const RightSidebar = () => {
@@ -88,8 +89,18 @@ const RightSidebar = () => {
 
         </div>
       ) : (
-        <div className="flex flex-col items-center justify-center h-40 text-neutral-500">
-          <p>Settings Component WIP ⚙️</p>
+        <div className="flex flex-col gap-4 mt-2">
+          <div className="bg-neutral-950 p-4 rounded-lg border border-neutral-800">
+            <h3 className="text-neutral-300 font-bold mb-4 border-b border-neutral-800 pb-2">Account Settings</h3>
+            
+            {/* CLERK SIGN OUT BUTTON */}
+            <SignOutButton>
+              <button className="w-full py-2.5 bg-red-900/10 hover:bg-red-900/30 text-red-500 hover:text-red-400 border border-red-900/50 rounded-lg font-bold transition-all flex items-center justify-center gap-2 shadow-[0_0_10px_rgba(220,38,38,0.05)] active:scale-95">
+                <span>🚪</span> Log Out
+              </button>
+            </SignOutButton>
+
+          </div>
         </div>
       )}
 
