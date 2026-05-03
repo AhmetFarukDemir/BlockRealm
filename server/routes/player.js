@@ -2,6 +2,7 @@ import express from 'express';
 import User from '../models/User.js';
 import { requireAuth } from '@clerk/express';
 import gameConfig from '../models/gameConfig.json' with { type: "json" };
+import { randomInt } from 'crypto';
 
 const router = express.Router();
 
@@ -52,7 +53,7 @@ router.post('/buy', requireAuth(), async (req, res) => {
         if (!item) {
             return res.status(400).json({ message: "Invalid item" });
         }
-        const totalPrice = item.value * quantity;
+        const totalPrice = item.buyPrice * quantity;
         const user = await User.findOne({ clerkId });
 
         if (!user) {
@@ -91,7 +92,7 @@ router.post('/sell', requireAuth(), async (req, res) => {
             return res.status(400).json({ message: "Invalid item" });
         }
 
-        const totalPrice = item.value * quantity;
+        const totalPrice = item.sellPrice * quantity;
         const user = await User.findOne({ clerkId });
 
 
@@ -144,7 +145,7 @@ router.post('/mine', requireAuth(), async (req, res) => {
         user.xp += validClicks * 15;
 
         for (let i = 0; i < validClicks; i++) {
-            let rng = Math.random() * totalWeight;
+            let rng = randomInt(1, totalWeight + 1);
 
             for (const loot of gameConfig.miningLootTable) {
                 rng -= loot.chance;

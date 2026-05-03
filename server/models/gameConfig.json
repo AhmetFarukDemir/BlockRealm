@@ -4,26 +4,30 @@
       "name": "Iron Sword",
       "description": "A basic iron sword, effective for close combat.",
       "type": "tool",
-      "value": 50,
+      "buyPrice": 50,
+      "sellPrice": 10,
       "iconUrl": "/icons/iron_sword.png"
     },
     "2": {
       "name": "Stone",
       "description": "A common material used for crafting and building.",
       "type": "material",
-      "value": 10,
+      "buyPrice": 10,
+      "sellPrice": 2,
       "iconUrl": "/icons/stone.png"
     },
     "3": {
       "name": "Iron Ore",
       "type": "material",
-      "value": 25,
+      "buyPrice": 25,
+      "sellPrice": 5,
       "iconUrl": "/icons/iron_ore.png"
     },
     "4": {
       "name": "Mystery Chest",
       "type": "consumable",
-      "value": 100,
+      "buyPrice": 100,
+      "sellPrice": 20,
       "iconUrl": "/icons/chest.png"
     }
   },

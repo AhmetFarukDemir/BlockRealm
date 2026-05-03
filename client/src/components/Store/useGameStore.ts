@@ -23,7 +23,8 @@ interface GameDictionary {
       name: string;
       description: string;
       type: "tool" | "armor" | "consumable" | "material" | string;
-      value: number;
+      buyPrice: number;
+      sellPrice: number;
       iconUrl: string;
     };
   };

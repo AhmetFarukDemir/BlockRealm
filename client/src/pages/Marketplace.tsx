@@ -18,8 +18,8 @@ const Marketplace = () => {
   if (!gameDictionary)
     return <div className="p-4 text-neutral-500">Loading Data...</div>;
 
-  const buyItem = async (itemId: number, value: number) => {
-    if (player.gold < value) return; // Frontend UI protection
+  const buyItem = async (itemId: number, buyPrice: number) => {
+    if (player.gold < buyPrice) return; // Frontend UI protection
     if (isProcessing) return;
     setIsProcessing(true);
 
@@ -126,14 +126,14 @@ const Marketplace = () => {
                         type={dictItem.type}
                         rarity={"common"}
                         iconUrl={dictItem.iconUrl}
-                        value={dictItem.value}
+                        sellPrice={dictItem.sellPrice}
                         level={1}
                       />
                     </div>
                     <div className="flex items-center gap-3 w-full sm:w-auto sm:border-l sm:border-neutral-800 sm:pl-4">
                       <div className="text-right hidden sm:block mr-2">
                         <p className="text-xs text-neutral-500 font-bold uppercase tracking-wider">Value</p>
-                        <p className="text-lg font-black text-yellow-500">{dictItem.value} <span className="text-sm">🪙</span></p>
+                        <p className="text-lg font-black text-yellow-500">{dictItem.sellPrice} <span className="text-sm">🪙</span></p>
                       </div>
                       <div className="flex gap-2 w-full">
                         <button onClick={() => sellItem(targetId, 1)} disabled={isProcessing} className="flex-1 sm:flex-none bg-neutral-800 hover:bg-neutral-700 disabled:opacity-50 text-neutral-200 font-bold py-2 px-4 rounded border border-neutral-700 transition-colors whitespace-nowrap">
@@ -157,7 +157,7 @@ const Marketplace = () => {
               const itemId = parseInt(idString);
               // Optional: I can also choose to only list consumables or tools, and exclude materials (like stone, iron) from the marketplace by adding an if condition here.
 
-              const canAfford = player.gold >= dictItem.value;
+              const canAfford = player.gold >= dictItem.buyPrice;
 
               return (
                 <div key={itemId} className="flex flex-col sm:flex-row items-center justify-between bg-neutral-950 border border-neutral-800 rounded-lg p-3 gap-4 hover:border-neutral-700 transition-colors shadow-sm">
@@ -169,7 +169,7 @@ const Marketplace = () => {
                       type={dictItem.type}
                       rarity={"common"}
                       iconUrl={dictItem.iconUrl}
-                      value={dictItem.value}
+                      buyPrice={dictItem.buyPrice}
                       level={1}
                     />
                   </div>
@@ -177,12 +177,12 @@ const Marketplace = () => {
                     <div className="text-right hidden sm:block mr-2">
                       <p className="text-xs text-neutral-500 font-bold uppercase tracking-wider">Price</p>
                       <p className={`text-lg font-black ${canAfford ? 'text-yellow-500' : 'text-red-500'}`}>
-                        {dictItem.value} <span className="text-sm">🪙</span>
+                        {dictItem.buyPrice} <span className="text-sm">🪙</span>
                       </p>
                     </div>
                     <div className="flex gap-2 w-full">
                       <button 
-                        onClick={() => buyItem(itemId, dictItem.value)} 
+                        onClick={() => buyItem(itemId, dictItem.buyPrice)} 
                         disabled={isProcessing || !canAfford}
                         className={`flex-1 sm:flex-none font-bold py-2 px-6 rounded border transition-colors whitespace-nowrap ${
                           canAfford && !isProcessing 

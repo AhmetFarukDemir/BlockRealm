@@ -42,7 +42,7 @@ const LeftSidebar = () => {
                 type={dictItem.type}               // From dictionary
                 rarity={'common'}                  // Hardcode rarity for now
                 iconUrl={dictItem.iconUrl}         // From dictionary
-                value={dictItem.value}             // From dictionary
+                sellPrice={dictItem.sellPrice}     // From dictionary
                 level={1}                          // Hardcode level for now
               />
             )

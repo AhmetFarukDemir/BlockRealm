@@ -4,7 +4,8 @@ type InventoryItemProps = {
   quantity: number
   level: number
   type: string
-  value?: number
+  buyPrice?: number
+  sellPrice?: number
   base_power?: number
   base_defense?: number
   healing_amount?: number
